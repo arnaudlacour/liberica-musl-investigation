@@ -5,10 +5,12 @@ services:
     image: arnaudlacour/m-arch:pd
     environment:
       - SERVER_PROFILE_URL=https://github.com/arnaudlacour/liberica-musl-investigation.git
+      - SERVER_PROFILE_PATH=${MODE}
       - SERVER_PROFILE_PARENT=BASE
       - SERVER_PROFILE_BASE_URL=https://github.com/pingidentity/pingidentity-server-profiles.git
       - SERVER_PROFILE_BASE_PATH=baseline/pingdirectory
       - PING_IDENTITY_DEVOPS_USER=ping-devops-liberica@pingidentity.com
+      - MAX_HEAP_SIZE=768m
       - PING_IDENTITY_ACCEPT_EULA=YES
       - PING_IDENTITY_DEVOPS_KEY=${KEY}
     ulimits:
@@ -18,3 +20,8 @@ services:
       nofile:
         soft: 65535
         hard: 65535
+    mem_limit: 2g
+    memswap_limit: 2g
+    mem_swappiness: 0
+    tmpfs: /run/secrets
+    command: start-server /opt/wait-for localhost:1389 -t 300 -- /opt/liveness.sh

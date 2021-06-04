@@ -6,3 +6,6 @@ products
 
 To further qualify this, we see this occur 100% of the time
 with PingData but about 1/3 of the time when starting DropWizard.
+
+# how to use this
+KEY=<DEVOPS KEY> docker-compose up --exit-code-from pingdirectory --abort-on-container-exit
